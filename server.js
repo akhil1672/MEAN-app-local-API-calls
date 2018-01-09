@@ -1,8 +1,8 @@
+require('dotenv').config();
 const express=require('express');
 const app=express();
 const body=require('body-parser');
 const mongodb=require('mongodb').MongoClient;
-const MONGODB_URI ="mongodb://akhil1672:akhil1672@ds247027.mlab.com:47027/students1672"
 const path=require('path');
 const studentsCol="students";
 const ID=mongodb.ObjectID;
@@ -12,7 +12,7 @@ app.use(body.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'dist')));
 
 let db;
-mongodb.connect(MONGODB_URI,function(err,database){
+mongodb.connect(process.env.MONGODB_URI,function(err,database){
     if(err)
     {
         console.error(err);
