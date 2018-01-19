@@ -60,8 +60,8 @@ app.post('/api/students',function(req,res){
     })
 })
 
-app.get('/api/students/:id',function(re,res){
-    db.collection(studentsCol).findOne({_id:new ID(req.params.id)},function(err,student){
+app.get('/api/students/:name',function(req,res){
+    db.collection(studentsCol).findOne({name:req.params.name},function(err,student){
         if(err)
         {
             console.error("Error in finding student");
@@ -71,8 +71,8 @@ app.get('/api/students/:id',function(re,res){
     })
 })
 
-app.delete('/api/students/:id',function(req,res){
-    db.collection(studentsCol).deleteOne({ _id: new ID(req.params.id) }, function (err, student) {
+app.delete('/api/students/:name',function(req,res){
+    db.collection(studentsCol).deleteOne({ name: req.params.name }, function (err, student) {
         if (err) {
             console.error("Error in deleting student");
             process.exit(1);
@@ -81,10 +81,10 @@ app.delete('/api/students/:id',function(req,res){
     })
 })
 
-app.put('api/students/:id',function(req,res){
+app.put('api/students/:name',function(req,res){
     let updatestudent=req.body;
 
-    db.collection(studentsCol).findOne({ _id: ID(req.params.id) }, function (err, student) {
+    db.collection(studentsCol).findOne({ name: req.params.name },updatestudent,{}, function (err, student) {
         if (err) {
             console.error("Error in updating student");
             process.exit(1);

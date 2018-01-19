@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let student of students" [routerLink]="['/students',student.name]">
+    <tr *ngFor="let student of students" [routerLink]="['/students',student.name]" (click)="selectStudent(student)">
       <td>{{student.name}}</td>
       <td>{{student.college}}</td>
     </tr>

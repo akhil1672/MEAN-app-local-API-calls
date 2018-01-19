@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-const url = "/api/students";
+import { environment } from '../../environments/environment';
+import { student } from '../student';
+const url = environment.url;
 let Students;
 @Injectable()
 export class StudentService {
@@ -9,9 +11,13 @@ export class StudentService {
 
   getstudents(){
     //const url = "/api/students";
-    let students=this.http.get(url);
+    let students=this.http.get<student[]>(url);
     Students=students;
     return students;
+  }
+
+  getstudent(name){
+    return this.http.get<student>(url+'/'+name);
   }
 
   addstudent(newstudent){
@@ -20,17 +26,17 @@ export class StudentService {
     headers.append('Content-Type', 'application/json');
     console.log("service"+JSON.stringify(newstudent));
     //Students.push(newstudent);
-    return this.http.post(url,newstudent,{headers:headers});
+    return this.http.post<student>(url,newstudent,{headers:headers});
   }
 
-  deletestudent(studentid){
+  deletestudent(studentname){
     //const url = "/api/students";
-    return this.http.delete(url+'/'+studentid);
+    return this.http.delete<student>(url+'/'+studentname);
   }
 
   updatestudent(updstudent){
     //const url = "/api/students";
-    return this.http.put(url+'/'+updstudent._id,updstudent);
+    return this.http.put<student>(url+'/'+updstudent.name,updstudent);
   }
 
 }
